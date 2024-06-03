@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        width: 100vw;
+      }
+      h1 {
+        font-size: 6rem;
+        font-family: "Merriweather", serif;
+      }
+      p {
+        font-size: xx-large;
+        font-weight: 800;
+        color: gray;
+        font-family: "Dancing Script", cursive;
+      }
+      .Slider-container {
+        height: 100%;
+        width: 100%;
+        padding: 1%;
+      }
+      .Slider {
+        height: 100%;
+        width: 100%;
+      }
+      .controls {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        bottom: 50%;
+      }
+      .controls button {
+        height: 40px;
+        width: 40px;
+        border: none;
+        border-radius: 50%;
+        background-color: transparent;
+        transition: all ease-in-out 0.2s;
+        cursor: pointer;
+      }
+      i {
+        font-size: xx-large;
+        color: rgb(131, 131, 131);
+      }
+      .slide {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+      .right {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        justify-content: end;
+      }
+      .left {
+        width: 40%;
+        height: 100%;
+        padding: 50px;
+      }
+      .right img {
+        height: 100%;
+        object-fit: cover;
+        z-index: -999;
+      }
+      .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="Slider-container">
+      <div class="Slider"></div>
+      <div class="controls">
+        <button class="prev">
+          <i
+            style="transform: rotate(180deg)"
+            class="fa-solid fa-chevron-right"
+          ></i>
+        </button>
+        <button class="next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      let index = 0;
+      const nextBtn = document.querySelector(".next");
+      const prevBtn = document.querySelector(".prev");
+      const sliderContent = document.querySelector(".Slider");
+      const slideDescription = [
+        {
+          head: "Best Men Collections",
+          para: "Prime Members Can Enjoy Unlimited Free Shipping, Early Access To Lightning Deals and More. Transform Your Wardrobe & Treat Yourself To Something New With Fashionable Clothing.",
+          url: "/freepik-export-20240601132958ddiI (1).png",
+        },
+        {
+          head: "Trendz this Year",
+          para: "The ready-to-wear ensembles are dipped in cheerful, eclectic graphics on luxurious fabrics ranging from pure silk, chiffon.",
+          url: "/freepik-export-20240601133045OSiF.png",
+        },
+        {
+          head: "Wardrobe Waiting",
+          para: "so much , to fill up your Wardrobe for entire collection",
+          url: "/freepik-export-20240601133318eAka.png",
+        },
+      ];
+      printSlide(slideDescription[index]);
+        gsap.from(prevBtn, {
+          duration: 1,
+          scale:0,
+          x: 50,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+        });
+        gsap.from(nextBtn, {
+          duration: 1,
+          scale:0,
+          x: -50,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+        });
+
+      document.querySelector(".next").addEventListener("click", () => {
+        if (index < 2) {
+          sliderContent.innerHTML = "";
+          index++;
+          printSlide(slideDescription[index]);
+        }
+        gsap.from(prevBtn, {
+          duration: 1,
+          scale:0,
+          x: 50,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+          delay:2
+        });
+        gsap.from(nextBtn, {
+          duration: 1,
+          scale:0,
+          x: -50,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+          delay:2
+        });
+      });
+      document.querySelector(".prev").addEventListener("click", () => {
+        if (index > 0) {
+          sliderContent.innerHTML = "";
+          index--;
+          printSlide(slideDescription[index]);
+        }
+        gsap.from(prevBtn, {
+          duration: 1,
+          scale:0,
+          x: 50,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+          delay:2
+        });
+        gsap.from(nextBtn, {
+          duration: 1,
+          scale:0,
+          x: -50,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+          delay:2
+        });
+      });
+
+      function printSlide({ head, para, url }) {
+        const slideDiv = document.createElement("div");
+        slideDiv.classList.add("slide");
+
+        const leftDiv = document.createElement("div");
+        leftDiv.classList.add("left");
+
+        const heading = document.createElement("h1");
+        heading.textContent = head;
+
+        const paragraph = document.createElement("p");
+        paragraph.textContent = para;
+
+        leftDiv.appendChild(heading);
+        leftDiv.appendChild(paragraph);
+
+        const rightDiv = document.createElement("div");
+        rightDiv.classList.add("right");
+
+        const image = document.createElement("img");
+        image.setAttribute("src", url);
+        image.setAttribute("alt", "img");
+
+        rightDiv.appendChild(image);
+        slideDiv.appendChild(leftDiv);
+        slideDiv.appendChild(rightDiv);
+
+        document.querySelector(".Slider").appendChild(slideDiv);
+
+        gsap.from(image, {
+          duration: 1,
+          scale: 0.8,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+        });
+        gsap.from(heading, {
+          duration: 1,
+          y: 50,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+        });
+        gsap.from(paragraph, {
+          duration: 1,
+          y: 50,
+          opacity: 0,
+          ease: "slow(0.7,0.7,false)",
+          delay: 0.5,
+        });
+      }
+    </script>
+  </body>
+</html>
